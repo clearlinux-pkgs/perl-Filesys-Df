@@ -4,11 +4,11 @@
 #
 Name     : perl-Filesys-Df
 Version  : 0.92
-Release  : 9
+Release  : 10
 URL      : https://cpan.metacpan.org/authors/id/I/IG/IGUTHRIE/Filesys-Df-0.92.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/I/IG/IGUTHRIE/Filesys-Df-0.92.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libf/libfilesys-df-perl/libfilesys-df-perl_0.92-6.debian.tar.xz
-Summary  : No detailed summary available
+Summary  : Perl extension for filesystem disk space information
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
 Requires: perl-Filesys-Df-lib = %{version}-%{release}
@@ -36,6 +36,7 @@ Summary: dev components for the perl-Filesys-Df package.
 Group: Development
 Requires: perl-Filesys-Df-lib = %{version}-%{release}
 Provides: perl-Filesys-Df-devel = %{version}-%{release}
+Requires: perl-Filesys-Df = %{version}-%{release}
 
 %description dev
 dev components for the perl-Filesys-Df package.
@@ -63,7 +64,7 @@ license components for the perl-Filesys-Df package.
 cd ..
 %setup -q -T -D -n Filesys-Df-0.92 -b 1
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Filesys-Df-0.92/deblicense/
+cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Filesys-Df-0.92/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
