@@ -4,15 +4,15 @@
 #
 Name     : perl-Filesys-Df
 Version  : 0.92
-Release  : 12
+Release  : 13
 URL      : https://cpan.metacpan.org/authors/id/I/IG/IGUTHRIE/Filesys-Df-0.92.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/I/IG/IGUTHRIE/Filesys-Df-0.92.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libf/libfilesys-df-perl/libfilesys-df-perl_0.92-6.debian.tar.xz
-Summary  : Perl extension for filesystem disk space information
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
-Requires: perl-Filesys-Df-lib = %{version}-%{release}
 Requires: perl-Filesys-Df-license = %{version}-%{release}
+Requires: perl-Filesys-Df-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -34,21 +34,11 @@ is also available.
 %package dev
 Summary: dev components for the perl-Filesys-Df package.
 Group: Development
-Requires: perl-Filesys-Df-lib = %{version}-%{release}
 Provides: perl-Filesys-Df-devel = %{version}-%{release}
 Requires: perl-Filesys-Df = %{version}-%{release}
 
 %description dev
 dev components for the perl-Filesys-Df package.
-
-
-%package lib
-Summary: lib components for the perl-Filesys-Df package.
-Group: Libraries
-Requires: perl-Filesys-Df-license = %{version}-%{release}
-
-%description lib
-lib components for the perl-Filesys-Df package.
 
 
 %package license
@@ -59,18 +49,28 @@ Group: Default
 license components for the perl-Filesys-Df package.
 
 
+%package perl
+Summary: perl components for the perl-Filesys-Df package.
+Group: Default
+Requires: perl-Filesys-Df = %{version}-%{release}
+
+%description perl
+perl components for the perl-Filesys-Df package.
+
+
 %prep
 %setup -q -n Filesys-Df-0.92
-cd ..
-%setup -q -T -D -n Filesys-Df-0.92 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libfilesys-df-perl_0.92-6.debian.tar.xz
+cd %{_builddir}/Filesys-Df-0.92
 mkdir -p deblicense/
-cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Filesys-Df-0.92/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Filesys-Df-0.92/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -80,7 +80,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -89,7 +89,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Filesys-Df
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Filesys-Df/deblicense_copyright
+cp %{_builddir}/Filesys-Df-0.92/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Filesys-Df/767e484aafbf54590d24f7c78eec1b0fe8ed85e7
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -102,16 +102,16 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Filesys/Df.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Filesys::Df.3
 
-%files lib
-%defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/Filesys/Df/Df.so
-
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Filesys-Df/deblicense_copyright
+/usr/share/package-licenses/perl-Filesys-Df/767e484aafbf54590d24f7c78eec1b0fe8ed85e7
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Filesys/Df.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/Filesys/Df/Df.so
