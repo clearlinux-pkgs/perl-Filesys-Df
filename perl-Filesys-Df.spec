@@ -4,7 +4,7 @@
 #
 Name     : perl-Filesys-Df
 Version  : 0.92
-Release  : 17
+Release  : 18
 URL      : https://cpan.metacpan.org/authors/id/I/IG/IGUTHRIE/Filesys-Df-0.92.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/I/IG/IGUTHRIE/Filesys-Df-0.92.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libf/libfilesys-df-perl/libfilesys-df-perl_0.92-6.debian.tar.xz
